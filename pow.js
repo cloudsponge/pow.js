@@ -146,6 +146,9 @@ DEALINGS IN THE SOFTWARE.
         'background-position':'50% 50%',
         'background-size':'cover'
       });
+      // returning the element to indicate success, 
+      // but don't chain methods, in case 'undefined' was returned above..
+      return $el;
     };
 
   })();
