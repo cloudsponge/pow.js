@@ -49,6 +49,7 @@ DEALINGS IN THE SOFTWARE.
       var offset = $el.offset();
       var originX = (parseFloat(args.originX) || 0) / 100;
       var originY = (parseFloat(args.originY) || 0) / 100;
+      var rayRadius = (parseFloat(args.rayRadius) || null); // pass in a value to override the automatic calculation of the effect radius
 
       // center rays on a given element
       if (args.originEl) {
@@ -67,7 +68,7 @@ DEALINGS IN THE SOFTWARE.
       originY = height * originY;
 
       // find maximum distance to a corner
-      var radius = Math.max.apply(Math, [
+      var radius = rayRadius || Math.max.apply(Math, [
         {x:0,y:0},
         {x:width,y:0},
         {x:0,y:height},
