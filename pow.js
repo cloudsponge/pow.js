@@ -27,6 +27,7 @@ DEALINGS IN THE SOFTWARE.
     rays: 16,
     originX: '50%',
     originY: '50%',
+    bgType: 'radial',  // or 'horizontal' or 'vertical' gradient
     bgColorStart: 'rgba(0,0,0,0.1)',
     bgColorEnd: 'rgba(0,0,0,0.2)',
     rayColorStart: 'hsla(0,0%,100%,0.2)',
@@ -86,10 +87,24 @@ DEALINGS IN THE SOFTWARE.
       }
 
       // build the background gradient
-      var bgGrad = ctx.createRadialGradient(
-        originX, originY, 0, // inner circle, infinitely small
-        originX, originY, radius // outer circle, will just cover canvas area
-      );
+      var bgGrad;
+      if (args.bgType === 'horizontal') {
+        bgGrad = ctx.createLinearGradient(
+          $el.offset().left, $el.offset().top,
+          $el.offset().left + $el.width(), $el.offset().top
+        );
+      } else if (args.bgType === 'vertical') {
+        bgGrad = ctx.createLinearGradient(
+          $el.offset().left, $el.offset().top,
+          $el.offset().left, $el.offset().top + $el.height()
+        );
+      } else {
+        // default to the radial gradient for backwards compatability
+        bgGrad = ctx.createRadialGradient(
+          originX, originY, 0, // inner circle, infinitely small
+          originX, originY, radius // outer circle, will just cover canvas area
+        );
+      }
       bgGrad.addColorStop(0, args.bgColorStart);
       bgGrad.addColorStop(1, args.bgColorEnd);
 
